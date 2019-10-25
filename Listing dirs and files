@@ -1,0 +1,16 @@
+### This script is walking through folder and it`s subfolders and files and lists their content and titles
+
+import os
+
+dir_to_walkin = 'Smart Money Academy 2018'
+showin = 'C:\\Users\\User\\Downloads\\'+ dir_to_walkin
+
+for folder,subfolder,filename in os.walk(showin):
+    print(f"The current folder is {folder} ...")
+    for subfolder in subfolder:
+        print(f"Subfolder of {folder}: {subfolder} ...")
+
+    for file in filename:
+        print(f"This file - {file} is in {folder} ...")
+
+    print('')
