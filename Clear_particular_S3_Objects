@@ -1,0 +1,35 @@
+import boto3, re
+
+#boto3.set_stream_logger('botocore', level='DEBUG')
+
+security_buckets = [
+    's3_bucket1',
+    's3_bucket2'
+    's3_bucket3',
+]
+aws_session = boto3.Session(profile_name="some_aws_profile")
+s3 = aws_session.resource('s3')
+
+for security_bucket in security_buckets:
+
+    bucket = s3.Bucket(security_bucket)
+
+    for obj in bucket.object_versions.all():
+       re_delete = re.findall('^something', obj.key)
+       re_fluent_prefix_delete = re.findall('^not_bad', obj.key)
+
+       if re_delete or re_fluent_prefix_delete:
+          print("This object: {} from source bucket: {} will be deleted in a second...".format(obj.key,security_bucket))
+          response = bucket.delete_objects(
+            Delete={
+                'Objects': [
+                    {
+                        'Key': obj.key,
+                        'VersionId': obj.id
+                    }
+                ]
+            }
+          )
+          print(response)
+       else:
+          print("Skipping object: {} from source bucket: {}".format(obj.key,security_bucket))
