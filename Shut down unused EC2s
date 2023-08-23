@@ -6,8 +6,11 @@
 # state.                                                            #
 #                                                                   #
 # The main idea for this script is to be deployed as an AWS Lambda  #
-# function with relevant IAM role policy. It could be also enhanced #
-# with SNS topic notifications.                                     #
+# function with relevant IAM role policy. It will be triggered by   #
+# an EventBridge rule once per day. The EventBridge rule should     #
+# also have the permission to trigger the Lambda function.          #
+#                                                                   #
+# The function could be also enhanced with SNS topic notifications. #
 #####################################################################
 
 import boto3
