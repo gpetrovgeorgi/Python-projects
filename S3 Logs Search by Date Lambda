@@ -1,9 +1,19 @@
+####################################################################
+# This script is intended to be deployed as an AWS Lambda Function #
+# which pass through certain S3 object paths and name formats (the #
+# time_format var.) in order to confirm there are any log files    #
+# uploaded for the current day.                                    #
+#                                                                  #
+# Please note that the relevant IAM role and policy of the Lambda  #
+# function should be also set in place. The same goes for the S3   #
+# bucket policy.                                                   #
+####################################################################
+
 import boto3
 import logging
 from datetime import datetime
 
-# Dictionary containing input data for logs scraping
-
+# Input data for log files scraping
 bucket_scan_info = {
   "bucket_a": {
     "log_folders": {
@@ -37,7 +47,6 @@ bucket_scan_info = {
 }
 
 # Returns current date by a given input format
-
 def date_time(s3_log_format):
     current_datetime = datetime.now()
     current_day = current_datetime.strftime(s3_log_format)
@@ -46,7 +55,6 @@ def date_time(s3_log_format):
 # Searches log files in a given particular prefix
 # The prefix contains the current day in a specific format provided above
 # We need to only be sure that for the current day there is only one log file uploaded for those S3 prefixes
-
 def logs_check(
         bucket_name,
         prefix_path,
@@ -70,7 +78,7 @@ def logs_check(
     else:
         logger.info(f'Did not find any log files for TODAY by {log_system} in {bucket_name} with prefix path {prefix_path}, and log format {log_format}')
 
-
+# Main function, invokes other functions.
 def lambda_handler(event, context):
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
