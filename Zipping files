@@ -1,4 +1,9 @@
-### This is a simple script, which zips the files in zip_list in the given directory.
+#################################################
+# It zips a list of files in a given directory. #
+# It is used on a Windows OS. It could be used  #
+# on Linux distro as well just the folder path  #
+# var. should be changed.                       #
+#################################################
 
 import zipfile, os
 from sys import exit
