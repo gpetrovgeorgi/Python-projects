@@ -1,4 +1,9 @@
-### This script searches and deletes the files from the given list.
+#####################################################
+# It searches and deletes a list.                   #
+# It is used on a Windows OS. It could be used      #
+# on Linux distros as well just the os.chdir method #
+# value and desktop var. should be changed          #
+#####################################################
 
 import shutil, os
 
