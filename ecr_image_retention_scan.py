@@ -1,3 +1,7 @@
+############################################################
+# Lists and finds AWS ECR images and their retention time. #
+############################################################
+
 import boto3
 import json
 from datetime import datetime, timedelta
